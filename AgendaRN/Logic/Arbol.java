@@ -46,7 +46,7 @@ public class Arbol {
         }
     }
 
-    public void insertar(int dato) {
+    public void insertar(Datos dato) {
         Nodo nuevo = crearNodo(dato);
 
         if (raiz == null) {
@@ -56,13 +56,13 @@ public class Arbol {
             Nodo ant = null;
             while (aux != null) {
                 ant = aux;
-                if (nuevo.dato > aux.dato) {
+                if (nuevo.dato.orden > aux.dato.orden) {
                     aux = aux.derecho;
                 } else {
                     aux = aux.izquierdo;
                 }
             }
-            if (nuevo.dato > ant.dato) {
+            if (nuevo.dato.orden > ant.dato.orden) {
                 ant.derecho = nuevo;
             } else {
                 ant.izquierdo = nuevo;
@@ -93,7 +93,7 @@ public class Arbol {
 
     }
 
-    public Nodo crearNodo(int dato) {
+    public Nodo crearNodo(Datos dato) {
         Nodo nuevo = new Nodo();
         nuevo.dato = dato;
         nuevo.color = Color.ROJO;
@@ -118,14 +118,19 @@ public class Arbol {
     void inorder(Nodo r) {
         if (r != null) {
             inorder(r.izquierdo);
-            System.out.print(r.dato + " ");
+            System.out.print(r.dato.nombre + " ");
+            System.out.print(r.dato.apellido + " ");
+            System.out.println(r.dato.ciudad + " ");
             inorder(r.derecho);
         }
     }
 
     void preorder(Nodo r) {
         if (r != null) {
-            System.out.print(r.dato + " ");
+            System.out.print(r.dato.orden + " ");
+            System.out.print(r.dato.nombre + " ");
+            System.out.print(r.dato.apellido + " ");
+            System.out.println(r.dato.ciudad + " ");
             preorder(r.izquierdo);
             preorder(r.derecho);
         }
@@ -135,7 +140,10 @@ public class Arbol {
         if (r != null) {
             postorder(r.izquierdo);
             postorder(r.derecho);
-            System.out.print(r.dato + " ");
+            System.out.print(r.dato.orden + " ");
+            System.out.print(r.dato.nombre + " ");
+            System.out.print(r.dato.apellido + " ");
+            System.out.println(r.dato.ciudad + " ");
         }
     }
 
@@ -143,21 +151,24 @@ public class Arbol {
         if (r != null) {
             soloHojas(r.izquierdo);
             if ((r.izquierdo == null) && (r.derecho == null)) {
-                System.out.print(r.dato + " ");
+                System.out.print(r.dato.orden + " ");
+                System.out.print(r.dato.nombre + " ");
+                System.out.print(r.dato.apellido + " ");
+                System.out.println(r.dato.ciudad + " ");
             }
             soloHojas(r.derecho);
         }
     }
 
-    public Boolean buscar(int dato) {
+    public Boolean buscar(Datos dato) {
         return buscarElemento(raiz, dato);
     }
 
-    Boolean buscarElemento(Nodo r, int dato) {
+    Boolean buscarElemento(Nodo r, Datos dato) {
         if (r != null) {
             if (r.dato == dato) {
                 return true;
-            } else if (dato < r.dato) {
+            } else if (dato.orden < r.dato.orden) {
                 return buscarElemento(r.izquierdo, dato);
             } else {
                 return buscarElemento(r.derecho, dato);
@@ -167,7 +178,7 @@ public class Arbol {
         }
     }
     
-    public void eliminar(int dato) {
+    public void eliminar(Datos dato) {
         if (raiz != null) {
             Nodo aux = raiz;
             Nodo ant = raiz;
@@ -175,7 +186,7 @@ public class Arbol {
             
             while (aux.dato != dato) {
                 ant = aux;
-                if (dato < aux.dato) {
+                if (dato.orden < aux.dato.orden) {
                     esIzq = true;
                     aux = aux.izquierdo;
                 } else {
