@@ -87,6 +87,7 @@ if __name__ == '__main__':
         'cali': {'x': -76.52367405741018, 'y': 3.428418853721823}
     }
     arbol = kruskal(graph)
+    print(arbol)
     rutas = [(origen, destino, {'weight': peso})
              for peso, origen, destino in arbol]
 
